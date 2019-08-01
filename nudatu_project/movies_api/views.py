@@ -1,8 +1,8 @@
 from django.db.models import Q
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
-from .models import Movie, Comment
-from .serializers import CommentSerializer, MovieSerializer
+from .models import Movie, Comment, Top
+from .serializers import CommentSerializer, MovieSerializer, TopSerializer
 from rest_framework import generics
 from django_filters import rest_framework as filters
 
@@ -22,5 +22,10 @@ class CommentViewSet(viewsets.ModelViewSet):
         if query:
             queryset_list = queryset_list.filter(
                 Q(movie__id__icontains=query)
-            ).distract()
+            ).distinct()
         return queryset_list
+
+class TopViewSet(viewsets.ModelViewSet):
+    serializer_class = TopSerializer
+    permission_classes = [AllowAny]
+    queryset = Top.objects.all()

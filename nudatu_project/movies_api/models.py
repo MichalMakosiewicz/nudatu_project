@@ -6,7 +6,8 @@ class Movie(models.Model):
     name = models.CharField(max_length=50)
     
     def __str__(self):
-        return str(self.id)
+        return self.name
+
 
 class Comment(models.Model):
     movie = models.ForeignKey(Movie, on_delete=django.db.models.deletion.CASCADE)
@@ -17,8 +18,6 @@ class Comment(models.Model):
         return "[%s] %s" % (self.author, self.text)
 
 
-
-class Top(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=django.db.models.deletion.CASCADE)
+class Top(Movie):
     total_comments = Comment.objects.count()
-    # rank = models.CharField(max_length=1)
+    rank = models.CharField(max_length=100)

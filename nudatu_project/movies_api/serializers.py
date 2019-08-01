@@ -5,7 +5,7 @@ from .models import Movie, Comment, Top
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('id', 'name')
+        fields = ('name', 'id')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -13,7 +13,8 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('text', 'author', 'movie')
 
+
 class TopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Top
-        fields = ('id', 'total_comments')
+        fields = ('total_comments', 'rank')
